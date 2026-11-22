@@ -13,7 +13,11 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       - run: chmod +x gradlew
       - run: ./gradlew build
+      - name: Show build output
+        if: always()
+        run: ls -R build/libs || ls -R build | head -50
       - uses: actions/upload-artifact@v4
         with:
           name: enchanted-book-trader-1.20.1
-          path: build/libs/*.jar
+          path: build/libs/
+          if-no-files-found: error
